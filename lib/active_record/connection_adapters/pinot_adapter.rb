@@ -102,15 +102,13 @@ module ActiveRecord
         when NULL_REGEX
           nil
         when SINGLE_QUOTED_STRING_REGEX
-          $1.gsub("''", "'")
+          ::Regexp.last_match(1).gsub("''", "'")
         when DOUBLE_QUOTED_STRING_REGEX
-          $1.gsub('""', '"')
+          ::Regexp.last_match(1).gsub('""', '"')
         when NUMERIC_REGEX
-          $&
+          ::Regexp.last_match(0)
         when BINARY_HEX_REGEX
-          [$1].pack("H*")
-        else
-          nil
+          [::Regexp.last_match(1)].pack('H*')
         end
       end
 
